@@ -40,7 +40,7 @@ public class ConfigSecurity {
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.POST,"/api/v1/auth/register").permitAll() // allow any one to reach this endpoint
                 .requestMatchers("/api/v1/auth/get").permitAll()
-                .requestMatchers( "/api/v1/todo/**").permitAll()
+                .requestMatchers( "/api/v1/blog/**").permitAll()
                 .requestMatchers("/api/v1/auth/admin").hasAuthority("ADMIN") // allow any one to reach this endpoint
                 .anyRequest().authenticated()
                 .and()

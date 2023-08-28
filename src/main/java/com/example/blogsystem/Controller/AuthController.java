@@ -27,11 +27,23 @@ public class AuthController {
         return ResponseEntity.status(200).body("user added");
     }
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity updateUser(@RequestBody @Valid User user, @PathVariable Integer id){
+        authService.updateUser(id, user);
+        return ResponseEntity.status(200).body("user updated");
+    }
 
+    public ResponseEntity deleteUser(@PathVariable Integer id){
+        authService.deleteUser(id);
+
+        return ResponseEntity.status(200).body("user deleted");
+    }
 
     @GetMapping("/logout")
     public ResponseEntity logout() {
 
         return ResponseEntity.status(200).body(new ApiResponse("Logout Successfully"));
     }
+
+
 }
