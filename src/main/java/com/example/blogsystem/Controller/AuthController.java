@@ -33,6 +33,7 @@ public class AuthController {
         return ResponseEntity.status(200).body("user updated");
     }
 
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteUser(@PathVariable Integer id){
         authService.deleteUser(id);
 

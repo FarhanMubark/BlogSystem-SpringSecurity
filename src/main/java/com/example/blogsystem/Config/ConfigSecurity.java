@@ -19,7 +19,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class ConfigSecurity {
-    /// we config security if we want to user cerdiital from DB not from Spring boot
+
     private final UserDetailsService userDetailsService;
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider(){
@@ -39,9 +39,10 @@ public class ConfigSecurity {
                 .authenticationProvider(daoAuthenticationProvider())
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.POST,"/api/v1/auth/register").permitAll() // allow any one to reach this endpoint
-                .requestMatchers("/api/v1/auth/get").permitAll()
+                .requestMatchers(HttpMethod.GET,"/api/v1/auth/get").hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.DELETE,"/api/v1/auth/delete/{id}").permitAll()
+                .requestMatchers(HttpMethod.PUT,"/api/v1/auth/update/{id}").permitAll()
                 .requestMatchers( "/api/v1/blog/**").permitAll()
-                .requestMatchers("/api/v1/auth/admin").hasAuthority("ADMIN") // allow any one to reach this endpoint
                 .anyRequest().authenticated()
                 .and()
                 .logout()
