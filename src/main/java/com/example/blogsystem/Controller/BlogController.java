@@ -28,7 +28,7 @@ public class BlogController {
     }
 
     @PostMapping("/add-my-todo")
-    public ResponseEntity addBlog(@AuthenticationPrincipal User user, @RequestBody Blog blog){
+    public ResponseEntity addBlog(@AuthenticationPrincipal User user, @RequestBody @Valid Blog blog){
         blogService.addMyBlog(user.getId(), blog);
         return ResponseEntity.status(200).body("Blog added");
 
