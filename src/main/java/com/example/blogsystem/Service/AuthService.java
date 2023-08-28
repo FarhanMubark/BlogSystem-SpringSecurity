@@ -1,5 +1,6 @@
 package com.example.blogsystem.Service;
 
+import com.example.blogsystem.Api.ApiException;
 import com.example.blogsystem.Model.User;
 import com.example.blogsystem.Repository.AuthRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,5 +25,25 @@ public class AuthService {
         authRepository.save(user);
     }
 
+    public void updateUser(Integer id, User user){
+        User user1 = authRepository.findUserById(id);
+
+        if (user1 == null) {
+            throw new ApiException("User Not found");
+        }
+
+        user1.setUsername(user.getUsername());
+        user1.setPassword(user.getPassword());
+        authRepository.save(user1);
+    }
+
+    public void deleteUser(Integer id){
+        User user = authRepository.findUserById(id);
+        if (user == null) {
+            throw new ApiException("User Not found");
+        }
+
+        authRepository.delete(user);
+    }
 
 }
