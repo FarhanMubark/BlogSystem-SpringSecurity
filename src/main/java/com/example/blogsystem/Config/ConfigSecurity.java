@@ -40,8 +40,8 @@ public class ConfigSecurity {
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.POST,"/api/v1/auth/register").permitAll() // allow any one to reach this endpoint
                 .requestMatchers(HttpMethod.GET,"/api/v1/auth/get").hasAuthority("ADMIN")
-                .requestMatchers(HttpMethod.DELETE,"/api/v1/auth/delete/{id}").permitAll()
-                .requestMatchers(HttpMethod.PUT,"/api/v1/auth/update/{id}").permitAll()
+                .requestMatchers(HttpMethod.DELETE,"/api/v1/auth/delete/{id}").hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.PUT,"/api/v1/auth/update/{id}").hasAuthority("USER")
                 .requestMatchers( "/api/v1/blog/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
